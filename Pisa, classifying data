@@ -1,0 +1,27 @@
+df = pd.read_csv('../input/pisa-performance-scores-by-country/OECD PISA data.csv')
+
+
+#df$LOCATION <- as.factor(df$LOCATION)
+#df$INDICATOR <- as.factor(df$INDICATOR)
+#df$SUBJECT <- as.factor(df$SUBJECT)
+
+
+# show available locations
+#locs <- levels(df$LOCATION)
+
+# pick country and indicator
+my_indicator <- 'PISAMATH'
+
+for (my_location in locs) {
+    # filter subset
+    df_select <- df[(LOCATION) & (SUBJECT),]
+    
+    # plot development
+    if (nrow(df_select) > 3) { # only plot if more than on year available
+        my_title <- paste0(df_select$INDICATOR,' : ',df_select$LOCATION)
+        adjust_plot_size(12,5)
+        g <- ggplot(data=df_select, aes(x=TIME, y=Value, color=SUBJECT)) + geom_line() + ggtitle(my_title)
+        plot(g)
+        adjust_plot_size()
+    }
+}
